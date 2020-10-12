@@ -1,0 +1,49 @@
+<div class="overlay" [ngStyle]="{'display':display}"></div>
+<!-- Modal -->
+<div class="modal" [ngStyle]="{'display':display}" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ isEditModeEnabled ? 'Edit' : 'Add'}} customer</h5>
+        <button (click)="closeModal(myForm)" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form #myForm="ngForm">
+              <div class="form-group">
+                  <input type="text" class="form-control" placeholder = 'Enter a name'  [(ngModel)]='persona.name' name="name" #name>
+              </div>
+              <div class="form-group">
+                  <input type="number" class="form-control" placeholder = 'Enter your age' [(ngModel)]='persona.age'  name="age" #age>
+              </div>
+              <div class="form-group">
+                  <input type="email" class="form-control" placeholder = 'Enter your email' [(ngModel)]='persona.email' name="email" #email>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" [(ngModel)]='persona.id' name="id" #id hidden>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" (click)="closeModal(myForm)">Close</button>
+        <input *ngIf="!isEditModeEnabled" type="button" class="btn btn-primary" (click)="addCustomer(myForm)" value='Add Customer'>
+        <input *ngIf="isEditModeEnabled" type="button" class="btn btn-success"  (click)="updateCustomer(myForm)" value='Update'>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <form style="background:#428bca;padding-top:20px;margin-top:20px;padding-bottom:2px;">
+    <div class="form-group">
+        <div class="input-group" style="padding-left:10px;width: 100% !important;">
+            <input id="filter" name="text" [(ngModel)]="usuarioInput" placeholder="Search" type="text" (input)="changeInput(usuarioInput)" >
+            <i id="filterIcon" class="fa fa-search"></i>
+        </div>
+    </div>
+  </form>
+  <app-lista [usuarioInput]="usuarioInput"></app-lista>
+
+
+  <button (click)="openModalDialog()" class="btn btn-primary">Add customer</button>
+</div>
